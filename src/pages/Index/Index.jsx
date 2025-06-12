@@ -15,6 +15,7 @@ function getItem(label, key, icon, children) {
 }
 const items = [
     getItem(<NavLink to="/order"> 订单 </NavLink>, '1', <PieChartOutlined />),
+    getItem(<NavLink to="/doubao"> 豆包 </NavLink>, '2', <PieChartOutlined />),
 ];
 const Index = () => {
     const [collapsed, setCollapsed] = useState(false);

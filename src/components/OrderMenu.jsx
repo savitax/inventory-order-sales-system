@@ -26,7 +26,7 @@ export default function OrderMenu(props) {
                     arr.push({ value: item.id, label: item.name })
                 })
                 setCustomerList(arr);
-            })
+            }).catch(err => { console.log(err); })
         fetch('http://localhost:8000/sales_man')
             .then(res => res.json())
             .then(data => {
@@ -35,7 +35,7 @@ export default function OrderMenu(props) {
                     arr.push({ value: item.id, label: item.name })
                 })
                 setSalesmanlist(arr);
-            })
+            }).catch(err => { console.log(err); })
     }, [])
 
     React.useEffect(() => {
@@ -45,7 +45,7 @@ export default function OrderMenu(props) {
             !!obj[key] === false && delete obj[key];
         }
         setFilterList(obj);
-    },[order_date, delivery_date, salesman, customer, sales_contract_no, customer_order_no, model, special_required, order_status, is_self_buy])
+    }, [order_date, delivery_date, salesman, customer, sales_contract_no, customer_order_no, model, special_required, order_status, is_self_buy])
 
     const menulist = [
         {

@@ -1,71 +1,107 @@
 {
-    "order": [
+  "order": [
+    {
+      "id": "sda4651d6sa48w4de1f",
+      "order_date": "1749544602305",
+      "sales_man": "隔壁老王",
+      "delivery_date": "1751272602000",
+      "customer_name": "翻墙老宋",
+      "customer_order_no": "BG2025-00001",
+      "sales_contract_no": "HN2506999",
+      "details": [
         {
-            "id": "sda4651d6sa48w4de1f",
-            "order_date": "1749544602305",
-            "sales_man": "隔壁老王",
-            "delivery_date": "1751272602000",
-            "customer_name": "翻墙老宋",
-            "customer_order_no": "BG2025-00001",
-            "sales_contract_no": "HN2506999",
-            "details": [
-                {
-                    "id": "4864da65wd4w8a6fd4fa",
-                    "order_date": "1749544602305",
-                    "delivery_date": "1751272602000",
-                    "production_method": "自制",
-                    "customer_model": "BG2025",
-                    "customer_produce_code": "ATX5265",
-                    "special_required": "带修理包",
-                    "model": "BT5999",
-                    "number": "120",
-                    "remarks": "注意防锈",
-                    "typing": "客户型号+客户LOGO",
-                    "packaging": "中性包装",
-                    "box_size": "19*18.5*12.5"
-                }
-            ]
+          "id": "4864da65wd4w8a6fd4fa",
+          "order_date": "1749544602305",
+          "delivery_date": "1751272602000",
+          "production_method": "自制",
+          "customer_model": "BG2025",
+          "customer_produce_code": "ATX5265",
+          "special_required": "带修理包",
+          "model": "BT5999",
+          "number": "120",
+          "remarks": "注意防锈",
+          "typing": "客户型号+客户LOGO",
+          "packaging": "中性包装",
+          "box_size": "19*18.5*12.5"
         }
-    ],
-    "order_change": [
-        {
-            "details_id": "",
-            "date": "",
-            "original_value": "",
-            "new_value": "",
-            "change_reason": ""
-        }
-    ],
-    "sales_man": [
-        {
-            "id": "sda4651d6sa48w4de1f",
-            "name": "隔壁老王",
-            "phone": "13888888888",
-            "email": "",
-            "address": "上海"
-        },
-        {
-            "id": "sda4651w9sa48w4de1f",
-            "name": "翻墙老宋",
-            "phone": "13989898989",
-            "email": "",
-            "address": "上海"
-        }
-    ],
-    "customer": [
-        {
-            "id": "sda4651d6sa94411f",
-            "name": "团溢",
-            "phone": "13636366363",
-            "email": "",
-            "address": "广州"
-        },
-        {
-            "id": "sda4651w9s85054de1f",
-            "name": "团不溢",
-            "phone": "15568545456",
-            "email": "",
-            "address": "州广"
-        }
+      ]
+    },
+    [
+      {
+        "order_date": "2025-06-12",
+        "sales_man": "卢孔强",
+        "delivery_date": "2025-08-12",
+        "customer_name": "杭州雷迪克节能科技股份有限公司",
+        "customer_order_no": "0625060059",
+        "sales_contract_no": "HN2506045",
+        "production_method": "自制",
+        "customer_produce_code": "",
+        "special_required": "AF-1油脂(白油)",
+        "model": "DAC40/43780041.5/37-2RZ(ABS88)",
+        "number": 2500,
+        "typing": "",
+        "packaging": "",
+        "box_size": "",
+        "key": "242f58f081d34f94"
+      },
+      {
+        "order_date": "2025-06-12",
+        "sales_man": "卢孔强",
+        "delivery_date": "2025-08-12",
+        "customer_name": "杭州雷迪克节能科技股份有限公司",
+        "customer_order_no": "0625060059",
+        "sales_contract_no": "HN2506045",
+        "production_method": "自制",
+        "customer_produce_code": "",
+        "special_required": "AF-1油脂(白油)",
+        "model": "DAC40/43780041.5/37-2RZ(ABS88)",
+        "number": 2500,
+        "typing": "",
+        "packaging": "",
+        "box_size": "",
+        "key": "3a58ea32f41c4c56"
+      }
     ]
+  ],
+  "order_change": [
+    {
+      "details_id": "",
+      "date": "",
+      "original_value": "",
+      "new_value": "",
+      "change_reason": ""
+    }
+  ],
+  "sales_man": [
+    {
+      "id": "sda4651d6sa48w4de1f",
+      "name": "隔壁老王",
+      "phone": "13888888888",
+      "email": "",
+      "address": "上海"
+    },
+    {
+      "id": "sda4651w9sa48w4de1f",
+      "name": "翻墙老宋",
+      "phone": "13989898989",
+      "email": "",
+      "address": "上海"
+    }
+  ],
+  "customer": [
+    {
+      "id": "sda4651d6sa94411f",
+      "name": "团溢",
+      "phone": "13636366363",
+      "email": "",
+      "address": "广州"
+    },
+    {
+      "id": "sda4651w9s85054de1f",
+      "name": "团不溢",
+      "phone": "15568545456",
+      "email": "",
+      "address": "州广"
+    }
+  ]
 }
