@@ -107,9 +107,9 @@ function getData(data) {
     let arr = [];
     data["订单详情"].forEach((item, index) => {
         let obj = {};
-        obj["order_date"] = new Date(data["下单日期"]);
+        obj["order_date"] = new Date(data["下单日期"]).getTime();
         obj["sales_man"] = data["业务员"];
-        obj["delivery_date"] = new Date(data["交货日期"]);
+        obj["delivery_date"] = new Date(data["交货日期"]).getTime();
         obj["customer_name"] = data["客户名称"];
         obj["customer_order_no"] = data["客户订单号"];
         obj["sales_contract_no"] = data["销售合同号"];

@@ -6,9 +6,11 @@ import { parseExcelFile, callVolcanoArkAPI, getData, UUID } from '../../utils';
 import UploadFile from '../../components/UploadFile';
 import TableShow from '../../components/TableShow';
 import translate from '../../utils/translate';
+import { fetchApi } from '../../utils/fetch';
 export default function Doubao() {
     const [file, setFile] = React.useState(null);
     const [data, setData] = React.useState([]);
+    const [dataShow, setDataShow] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const { apiKey, modelId } = api["DeepSeek_V3"];
     async function start() {
@@ -22,39 +24,41 @@ export default function Doubao() {
         console.log('jsonResult:', jsonResult);
 
         let arr = getData(jsonResult);
+        console.log('arr:', arr);
         arr.forEach((item, index) => {
-            item["order_date"] = `${item["order_date"].getFullYear()}-0${item["order_date"].getMonth() + 1}-${item["order_date"].getDate()}`
-            item["delivery_date"] = `${item["delivery_date"].getFullYear()}-0${item["delivery_date"].getMonth() + 1}-${item["delivery_date"].getDate()}`
             let uuid = UUID(16);
-            item["key"] = uuid;
-            // console.log(uuid);
+            item.id = uuid;
+        })
+
+        let showdata = JSON.parse(JSON.stringify(arr));
+        showdata.forEach((item, index) => {
+            item["order_date"] = `${new Date(item["order_date"]).getFullYear()}-0${new Date(item["order_date"]).getMonth() + 1}-${new Date(item["order_date"]).getDate()}`
+            item["delivery_date"] = `${new Date(item["delivery_date"]).getFullYear()}-0${new Date(item["delivery_date"]).getMonth() + 1}-${new Date(item["delivery_date"]).getDate()}`
+            item["key"] = index;
             return item;
         });
         setData([...data, ...arr]);
+        setDataShow([...dataShow, ...showdata]);
         setLoading(false);
     }
     async function save() {
-        fetch('http://localhost:8000/order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([...data])
-        })
-            .then(res => res.json())
-            .then(docs => {
-                console.log(docs);
-            })
+        let res = await fetchApi.post("http://localhost:8000/order", data);
+        console.log(res);
+        // fetchApi.post("http://localhost:8000/order", data)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //     })
     }
 
     return (
         <div>
             <UploadFile setFile={setFile} title="合同文件" />
             <Button onClick={start} loading={loading}>开始</Button>
-            {data.length !== 0 && <>
-                <TableShow dataSource={data} translate={translate} />
+            {dataShow.length !== 0 && <>
+                <TableShow dataSource={dataShow} translate={translate} />
                 <Button onClick={save}>保存</Button>
-                <Button onClick={() => setData([])}>清空</Button>
+                <Button onClick={() => { setData([]); setDataShow([]) }}>清空</Button>
             </>}
         </div>
     )

@@ -1,11 +1,11 @@
 /* eslint-disable */
 import { DatePicker, Descriptions, Input, Select } from 'antd';
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function OrderMenu(props) {
-    const [salesman, setSalesman] = React.useState();                   // 业务员
-    const [salesmanlist, setSalesmanlist] = React.useState();           // 业务员列表
-    const [customer, setCustomer] = React.useState();                   // 客户
+    const [sales_man, setSalesman] = React.useState();                   // 业务员
+    const [salesmanList, setSalesmanList] = React.useState();           // 业务员列表
+    const [customer_name, setCustomer] = React.useState();                   // 客户
     const [customerList, setCustomerList] = React.useState();           // 客户列表
 
     const [order_date, setOrder_date] = React.useState();               // 下单日期范围
@@ -16,6 +16,22 @@ export default function OrderMenu(props) {
     const [special_required, setSpecial_required] = React.useState();   // 特殊要求
     const [order_status, setOrder_status] = React.useState();           // 订单状态
     const [is_self_buy, setIs_self_buy] = React.useState();             // 自制外购
+
+    useEffect(() => {
+        const handleClearData = () => {
+            setSalesman(null);
+            setCustomer(null);
+            setSales_contract_no(null);
+            setCustomer_order_no(null);
+            setModel(null);
+            setSpecial_required(null);
+            setIs_self_buy(null);
+        };
+        window.addEventListener('clear-child-data', handleClearData);
+        return () => {
+            window.removeEventListener('clear-child-data', handleClearData);
+        };
+    }, [])
 
     React.useEffect(() => {
         fetch('http://localhost:8000/customer')
@@ -34,18 +50,33 @@ export default function OrderMenu(props) {
                 data.forEach(item => {
                     arr.push({ value: item.id, label: item.name })
                 })
-                setSalesmanlist(arr);
+                setSalesmanList(arr);
             }).catch(err => { console.log(err); })
     }, [])
 
     React.useEffect(() => {
         const { setFilterList } = props;
-        let obj = { order_date, delivery_date, salesman, customer, sales_contract_no, customer_order_no, model, special_required, order_status, is_self_buy };
+        let salesman_label = null;
+        let customername_label = null;
+        salesmanList && salesmanList.forEach(item => {
+            if (item.value === sales_man) {
+                salesman_label = item.label;
+                return;
+            }
+        });
+        customerList && customerList.forEach(item => {
+            if (item.value === customer_name) {
+                customername_label = item.label;
+                return;
+            }
+        });
+
+        let obj = { order_date, delivery_date, sales_man: salesman_label, customer_name: customername_label, sales_contract_no, customer_order_no, model, special_required, order_status, is_self_buy: is_self_buy === "1" ? "自制" : "外购" };
         for (let key in obj) {
             !!obj[key] === false && delete obj[key];
         }
         setFilterList(obj);
-    }, [order_date, delivery_date, salesman, customer, sales_contract_no, customer_order_no, model, special_required, order_status, is_self_buy])
+    }, [order_date, delivery_date, sales_man, customer_name, sales_contract_no, customer_order_no, model, special_required, order_status, is_self_buy])
 
     const menulist = [
         {
@@ -64,8 +95,16 @@ export default function OrderMenu(props) {
             label: '业务员',
             children: <Select
                 style={{ width: 120 }}
-                onChange={value => setSalesman(value)}
-                options={salesmanlist}
+                onChange={value => {
+                    salesmanList.forEach(item => {
+                        if (item.value === value) {
+                            setSalesman(item.label);
+                            return;
+                        }
+                    });
+                }}
+                options={salesmanList}
+                value={sales_man}
             />
         },
         {
@@ -93,8 +132,11 @@ export default function OrderMenu(props) {
             label: '客户名',
             children: <Select
                 style={{ width: 120 }}
-                onChange={value => { setCustomer(value); }}
+                onChange={value => {
+                    setCustomer(value);
+                }}
                 options={customerList}
+                value={customer_name}
             />
         },
         {
@@ -102,8 +144,9 @@ export default function OrderMenu(props) {
             children: <Select
                 style={{ width: 120 }}
                 onChange={(value) => { setIs_self_buy(value); console.log(value); }}
-                defaultValue={'0'}
-                options={[{ value: '0', label: "默认" }, { value: '1', label: '自制' }, { value: '2', label: '外购' }]}
+                // defaultValue={'0'}
+                options={[{ value: '1', label: '自制' }, { value: '2', label: '外购' }]}
+                value={is_self_buy}
             />
         }
     ]

@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React, { useState } from 'react';
-const ExcelJS = require('exceljs');
+import ExcelJS from 'exceljs';
 import { Button, Progress, Space, Alert } from 'antd';
-import UploadFile from '../Components/UploadFile';
+import UploadFile from '../../components/UploadFile';
 
 // 简单评估公式值（仅处理加减法）
 function evaluateFormula(formula) {
