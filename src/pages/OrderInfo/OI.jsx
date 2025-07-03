@@ -39,9 +39,6 @@ export default function OrderInfo() {
                     })
                 })
                 setDataSource(arr);
-                setFilterDataSource(arr);
-                console.log(arr[0]);
-
             })
             .catch(err => {
                 console.log(err);
@@ -67,9 +64,8 @@ export default function OrderInfo() {
         }
         setFilterDataSource(newArr);
     }
-
     function reset() {
-        document.dispatchEvent(new Event('reset'));
+        console.log('reset');
     }
     return (
         <div>

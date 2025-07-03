@@ -5,10 +5,12 @@
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@reduxjs/toolkit": "^2.8.2",
     "antd": "^5.25.2",
     "exceljs": "^4.4.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",
     "react-scripts": "5.0.1",
     "xlsx": "^0.18.5"
@@ -18,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "npx json-server --watch ./server/data.json --port 8000"
+    "server": "npx json-server --watch ./server/data.json --port 8000",
+    "dev": "concurrently \"npm run server\" \"npm start\""
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "json-server": "^0.17.4",
     "sass": "^1.89.0"
   }

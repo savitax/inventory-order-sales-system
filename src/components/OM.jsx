@@ -1,12 +1,11 @@
 /* eslint-disable */
 import { DatePicker, Descriptions, Input, Select } from 'antd';
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { update } from '../redux/filterObjSlice';
 
-export default function OrderMenu() {
+export default function OrderMenu(props) {
     const dispatch = useDispatch();
-    const filterObj = useSelector(state => state.filterObj);
     const [salesmanList, setSalesmanList] = React.useState();           // 业务员列表
     const [customerList, setCustomerList] = React.useState();           // 客户列表
 
@@ -20,7 +19,7 @@ export default function OrderMenu() {
         model: null,                    // 品名编码
         special_required: null,         // 特殊要求
         order_status: null,             // 订单状态
-        production_method: null,        // 自制外购
+        is_self_buy: null,              // 自制外购
     });
 
     useEffect(() => {
@@ -41,28 +40,13 @@ export default function OrderMenu() {
         fetch('http://localhost:8000/sales_man')
             .then(res => res.json())
             .then(data => {
-                let arr = [{ value: null, label: null }];
+                let arr = [];
                 data.forEach(item => {
                     arr.push({ value: item.id, label: item.name })
                 })
                 setSalesmanList(arr);
             }).catch(err => { console.log(err); })
     }, [])
-
-    document.addEventListener('reset', () => {
-        setFilterState({
-            sales_man: null,               // 业务员
-            customer_name: null,            // 客户
-            order_date: null,               // 下单日期范围
-            delivery_date: null,            // 发货日期范围
-            sales_contract_no: null,        // 销售合同号
-            customer_order_no: null,        // 客户订单号
-            model: null,                    // 品名编码
-            special_required: null,         // 特殊要求
-            order_status: null,             // 订单状态
-            production_method: null,        // 自制外购
-        })
-    })
 
     const menulist = [
         {
@@ -108,11 +92,11 @@ export default function OrderMenu() {
         },
         {
             label: '客户订单号',
-            children: <Input style={{ width: 180 }} value={filterState.customer_order_no} onChange={(e) => { setFilterState({ ...filterState, customer_order_no: e.target.value }); }} />
+            children: <Input style={{ width: 180 }} value={filterState.customer_order_no} onChange={(e) => { setCustomer_order_no(e.target.value); }} />
         },
         {
             label: '特殊要求',
-            children: <Input style={{ width: 180 }} value={filterState.special_required} onChange={(e) => { setFilterState({ ...filterState, special_required: e.target.value }); }} />
+            children: <Input style={{ width: 180 }} value={filterState.special_required} onChange={(e) => { setSpecial_required(e.target.value); }} />
         },
         {
             label: '客户名',
@@ -135,10 +119,10 @@ export default function OrderMenu() {
             children: <Select
                 style={{ width: 120 }}
                 onChange={(value) => {
-                    setFilterState({ ...filterState, production_method: value });
+                    setFilterState({ ...filterState, is_self_buy: value });
                 }}
-                options={[{ value: null, label: '全部' }, { value: '自制', label: '自制' }, { value: '外购', label: '外购' }]}
-                value={filterState.production_method}
+                options={[{ value: '自制', label: '自制' }, { value: '外购', label: '外购' }]}
+                value={filterState.is_self_buy}
             />
         }
     ]
